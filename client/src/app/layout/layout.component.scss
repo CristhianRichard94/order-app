@@ -1,0 +1,25 @@
+main {
+  height: 100%;
+}
+
+footer {
+  height: 50px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-block {
+  position: absolute;
+  align-self: center;
+  right: 15px;
+
+  .circle {
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

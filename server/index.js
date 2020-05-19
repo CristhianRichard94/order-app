@@ -1,18 +1,25 @@
-import express from "express";
-import db from "./src/DB/db";
-const app = express();
-import apiPort from "../settings.json"
+var express = require("express");
+var mongoose = require("mongoose");
+var bodyParser = require("body-parser");
+const { apiPort } = require("../settings.json");
 
-app.get("/api/v1/todos", (req, res) => {
-  res.status(200).send({
-    success: "true",
-    message: "todos retrieved successfully",
-    todos: db,
-  });
+var app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+var routes = require("./api/app");
+var productRoutes = require("./api/product");
+
+mongoose.connection.openUri("mongodb://localhost:27017/testdb", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
-
-
-app.listen(apiPort, () => {
-  console.log(`server running on port ${PORT}`);
-});
+app.use("/", routes);
+app.use("/product", productRoutes);
+// app.use("/login", loginRoutes);
+// app.use("/upload", uploadRoutes);
+app.listen(apiPort, () =>
+  console.log(`Node server listening at port ${apiPort}`)
+);

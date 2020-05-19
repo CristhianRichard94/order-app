@@ -1,0 +1,23 @@
+<header>
+  <mat-toolbar class="d-flex justify-content-start justify-content-lg-center align-items-center">
+    <div>{{'Order App' | uppercase}}</div>
+    <div class="user-block px-2" *ngIf="isLoggedIn">
+      <div class="content position-relative">
+        <button mat-button [matMenuTriggerFor]="menu">
+          <div class="content d-flex align-items-center">
+            <mat-icon>arrow_drop_down</mat-icon>
+            <div class="circle">CR</div>
+          </div>
+        </button>
+        <mat-menu class="position-absolute" #menu="matMenu">
+          <button mat-menu-item>option1</button>
+          <button mat-menu-item>salir</button>
+        </mat-menu>
+      </div>
+    </div>
+  </mat-toolbar>
+</header>
+<main class="main-content" [@routeAnimations]="outlet.isActivated ? outlet.activatedRoute : ''">
+  <router-outlet #outlet="outlet"></router-outlet>
+</main>
+<footer>footer</footer>
