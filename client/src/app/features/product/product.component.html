@@ -1,3 +1,33 @@
 <ul>
   <li *ngFor="let product of iProducts">{{product | json}}</li>
 </ul>
+
+<h3>Add new product</h3>
+<form [formGroup]="iForm">
+  <div>
+    <label>
+      Name
+      <input type="text" formControlName="name">
+    </label>
+  </div>
+  <div>
+    <label>
+      Image
+      <input type="text" formControlName="image">
+    </label>
+  </div>
+  <div>
+    <label>
+      Amount
+      <input type="text" formControlName="amount">
+    </label>
+  </div>
+  <div>
+    <label>
+      AmountUnit
+      <input type="text" formControlName="amountUnit">
+    </label>
+  </div>
+
+  <button mat-raised-button (click)="addNew()">Add</button>
+</form>

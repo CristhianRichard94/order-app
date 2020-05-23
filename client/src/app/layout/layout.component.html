@@ -18,6 +18,9 @@
   </mat-toolbar>
 </header>
 <main class="main-content" [@routeAnimations]="outlet.isActivated ? outlet.activatedRoute : ''">
+  <button mat-raised-button [routerLink]="['/products']" color="primary">
+    products
+  </button>
   <router-outlet #outlet="outlet"></router-outlet>
 </main>
 <footer>footer</footer>

@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+nodejs-server-server-generated(1).zip
+typescript-angular-client-generated(1).zip
+.vscode/launch.json

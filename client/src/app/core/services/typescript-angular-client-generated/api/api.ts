@@ -1,3 +1,17 @@
+export * from './order.service';
+import { OrderService } from './order.service';
+export * from './orderState.service';
+import { OrderStateService } from './orderState.service';
 export * from './product.service';
 import { ProductService } from './product.service';
-export const APIS = [ProductService];
+export * from './productPrice.service';
+import { ProductPriceService } from './productPrice.service';
+export * from './productType.service';
+import { ProductTypeService } from './productType.service';
+export * from './section.service';
+import { SectionService } from './section.service';
+export * from './table.service';
+import { TableService } from './table.service';
+export * from './user.service';
+import { UserService } from './user.service';
+export const APIS = [OrderService, OrderStateService, ProductService, ProductPriceService, ProductTypeService, SectionService, TableService, UserService];

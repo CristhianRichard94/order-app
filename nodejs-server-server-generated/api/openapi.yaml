@@ -1,0 +1,888 @@
+openapi: 3.0.0
+info:
+  title: Order Api
+  description: |
+    This is the order server api.
+  contact:
+    email: richardcristhian94@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1
+servers:
+- url: /
+paths:
+  /productType:
+    get:
+      tags:
+      - productType
+      summary: Get all products
+      operationId: getProductTypes
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductType'
+                x-content-type: application/json
+      x-swagger-router-controller: ProductType
+    put:
+      tags:
+      - productType
+      summary: Update an existing product
+      operationId: updateProductType
+      requestBody:
+        $ref: '#/components/requestBodies/ProductType'
+      responses:
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Product not found
+        "405":
+          description: Validation exception
+      security:
+      - products_auth:
+        - write:productType
+        - read:productType
+      x-swagger-router-controller: ProductType
+    post:
+      tags:
+      - productType
+      summary: Add a new productType to the database
+      operationId: addProductType
+      requestBody:
+        $ref: '#/components/requestBodies/ProductType'
+      responses:
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: ProductType
+  /productPrice:
+    post:
+      tags:
+      - productPrice
+      summary: Add a new productType to the database
+      operationId: addProductPrice
+      requestBody:
+        $ref: '#/components/requestBodies/ProductPrice'
+      responses:
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: ProductPrice
+  /order:
+    get:
+      tags:
+      - Order
+      summary: Get active Orders
+      operationId: getActiveOrders
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+                x-content-type: application/json
+      x-swagger-router-controller: Order
+    put:
+      tags:
+      - order
+      summary: Update an existing Order
+      operationId: updateOrder
+      requestBody:
+        $ref: '#/components/requestBodies/Order'
+      responses:
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Product not found
+        "405":
+          description: Validation exception
+      security:
+      - products_auth:
+        - write:productType
+        - read:productType
+      x-swagger-router-controller: Order
+    post:
+      tags:
+      - order
+      summary: Add a new order to the database
+      operationId: addOrder
+      requestBody:
+        $ref: '#/components/requestBodies/Order'
+      responses:
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Order
+  /order/find:
+    get:
+      tags:
+      - order
+      summary: Finds orders by filters
+      operationId: findOrders
+      parameters:
+      - name: date
+        in: query
+        description: date values that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date-time
+      - name: table
+        in: query
+        description: table number that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+      - name: user
+        in: query
+        description: user that need to be considered for filter
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+                x-content-type: application/json
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        "400":
+          description: Invalid date
+      x-swagger-router-controller: Order
+  /orderState:
+    get:
+      tags:
+      - orderState
+      summary: Get all orderStates
+      operationId: getOrderStates
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderState'
+                x-content-type: application/json
+      x-swagger-router-controller: OrderState
+    put:
+      tags:
+      - orderState
+      summary: Update an existing orderState
+      operationId: updateOrderState
+      requestBody:
+        $ref: '#/components/requestBodies/OrderState'
+      responses:
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Product not found
+        "405":
+          description: Validation exception
+      security:
+      - products_auth:
+        - write:orderState
+        - read:orderState
+      x-swagger-router-controller: OrderState
+    post:
+      tags:
+      - orderState
+      summary: Add a new orderState to the database
+      operationId: addOrderState
+      requestBody:
+        $ref: '#/components/requestBodies/OrderState'
+      responses:
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: OrderState
+  /table:
+    get:
+      tags:
+      - table
+      summary: Get all tables
+      operationId: getTables
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Table'
+                x-content-type: application/json
+      x-swagger-router-controller: Table
+    put:
+      tags:
+      - table
+      summary: Update an existing table
+      operationId: updateTable
+      requestBody:
+        $ref: '#/components/requestBodies/Table'
+      responses:
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Table not found
+        "405":
+          description: Validation exception
+      security:
+      - products_auth:
+        - write:table
+        - read:table
+      x-swagger-router-controller: Table
+    post:
+      tags:
+      - table
+      summary: Add a new table to the database
+      operationId: addTable
+      requestBody:
+        $ref: '#/components/requestBodies/Table'
+      responses:
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Table
+  /section:
+    get:
+      tags:
+      - section
+      summary: Get all sections
+      operationId: getSections
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Section'
+                x-content-type: application/json
+      x-swagger-router-controller: Section
+    put:
+      tags:
+      - section
+      summary: Update an existing section
+      operationId: updateSection
+      requestBody:
+        $ref: '#/components/requestBodies/Section'
+      responses:
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Table not found
+        "405":
+          description: Validation exception
+      security:
+      - products_auth:
+        - write:table
+        - read:table
+      x-swagger-router-controller: Section
+    post:
+      tags:
+      - section
+      summary: Add a new section to the database
+      operationId: addSection
+      requestBody:
+        $ref: '#/components/requestBodies/Section'
+      responses:
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Section
+  /product:
+    get:
+      tags:
+      - product
+      summary: Get all products
+      operationId: getProducts
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+                x-content-type: application/json
+      x-swagger-router-controller: Product
+    put:
+      tags:
+      - product
+      summary: Update an existing product
+      operationId: updateProduct
+      requestBody:
+        $ref: '#/components/requestBodies/Product'
+      responses:
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Product not found
+        "405":
+          description: Validation exception
+      security:
+      - products_auth:
+        - write:products
+        - read:products
+      x-swagger-router-controller: Product
+    post:
+      tags:
+      - product
+      summary: Add a new product to the database
+      operationId: addProduct
+      requestBody:
+        $ref: '#/components/requestBodies/Product'
+      responses:
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: Product
+  /product/find:
+    get:
+      tags:
+      - product
+      summary: Finds products by name
+      operationId: findProducts
+      parameters:
+      - name: status
+        in: query
+        description: Name values that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          default: ""
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+                x-content-type: application/json
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        "400":
+          description: Invalid status value
+      x-swagger-router-controller: Product
+  /product/{productId}:
+    get:
+      tags:
+      - product
+      summary: Find product by ID
+      description: Returns a single product
+      operationId: getProductById
+      parameters:
+      - name: productId
+        in: path
+        description: ID of product to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Product'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Product not found
+      x-swagger-router-controller: Product
+  /product/{productId}/uploadImage:
+    post:
+      tags:
+      - product
+      summary: uploads an image
+      operationId: uploadFile
+      parameters:
+      - name: productId
+        in: path
+        description: ID of product to update
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      x-swagger-router-controller: Product
+  /user:
+    get:
+      tags:
+      - user
+      summary: Get all users
+      operationId: getUsers
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                x-content-type: application/json
+      x-swagger-router-controller: User
+    put:
+      tags:
+      - product
+      summary: Update an existing user
+      operationId: updateUser
+      requestBody:
+        $ref: '#/components/requestBodies/User'
+      responses:
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: User not found
+        "405":
+          description: Validation exception
+      security:
+      - products_auth:
+        - write:users
+        - read:users
+      x-swagger-router-controller: Product
+    post:
+      tags:
+      - user
+      summary: Add a new user to the database
+      operationId: addUser
+      requestBody:
+        $ref: '#/components/requestBodies/User'
+      responses:
+        "405":
+          description: Invalid input
+      x-swagger-router-controller: User
+  /user/find:
+    get:
+      tags:
+      - user
+      summary: Finds users by name
+      operationId: findUser
+      parameters:
+      - name: status
+        in: query
+        description: Name values that need to be considered for filter
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          default: ""
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                x-content-type: application/json
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid status value
+      x-swagger-router-controller: User
+  /user/{userId}:
+    get:
+      tags:
+      - user
+      summary: Find user by ID
+      description: Returns a single user
+      operationId: getUserById
+      parameters:
+      - name: userId
+        in: path
+        description: ID of product to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: User not found
+      x-swagger-router-controller: User
+components:
+  schemas:
+    Order:
+      required:
+      - date
+      - products
+      - table
+      - userId
+      type: object
+      properties:
+        id:
+          type: string
+        clientName:
+          type: string
+        observartions:
+          type: string
+        date:
+          type: string
+          format: date-time
+        cost:
+          type: number
+        paidAmount:
+          type: number
+        userId:
+          type: string
+        table:
+          $ref: '#/components/schemas/Table'
+        orderState:
+          $ref: '#/components/schemas/OrderState'
+      example:
+        date: 2000-01-23T04:56:07.000+00:00
+        observartions: observartions
+        cost: 0.80082819046101150206595775671303272247314453125
+        clientName: clientName
+        id: id
+        paidAmount: 6.02745618307040320615897144307382404804229736328125
+        userId: userId
+        table:
+          number: 1.46581298050294517310021547018550336360931396484375
+          description: description
+          section:
+            number: 5.962133916683182377482808078639209270477294921875
+            description: description
+            id: id
+          id: id
+        orderState:
+          name: name
+          description: description
+          id: id
+    Table:
+      required:
+      - description
+      - number
+      - section
+      type: object
+      properties:
+        id:
+          type: string
+        number:
+          type: number
+        description:
+          type: string
+        section:
+          $ref: '#/components/schemas/Section'
+      example:
+        number: 1.46581298050294517310021547018550336360931396484375
+        description: description
+        section:
+          number: 5.962133916683182377482808078639209270477294921875
+          description: description
+          id: id
+        id: id
+    OrderState:
+      required:
+      - description
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+      example:
+        name: name
+        description: description
+        id: id
+    Section:
+      required:
+      - description
+      - number
+      type: object
+      properties:
+        id:
+          type: string
+        number:
+          type: number
+        description:
+          type: string
+      example:
+        number: 5.962133916683182377482808078639209270477294921875
+        description: description
+        id: id
+    Product:
+      required:
+      - amount
+      - amountUnit
+      - celiac
+      - image
+      - name
+      - productType
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5easdg798as87d
+        productType:
+          type: object
+        name:
+          type: string
+          example: Pizza muzzarella
+        image:
+          type: string
+        amount:
+          type: number
+        amountUnit:
+          type: string
+        celiac:
+          type: boolean
+        stock:
+          type: number
+        productPrice:
+          $ref: '#/components/schemas/ProductPrice'
+      example:
+        celiac: true
+        image: image
+        amount: 0.80082819046101150206595775671303272247314453125
+        name: Pizza muzzarella
+        id: 5easdg798as87d
+        stock: 6.02745618307040320615897144307382404804229736328125
+        productType: {}
+        amountUnit: amountUnit
+        productPrice:
+          amount: 1.46581298050294517310021547018550336360931396484375
+          productId: 5easdg798as87d
+          id: 5easdg798as87d
+          creationDate: 2000-01-23T04:56:07.000+00:00
+      xml:
+        name: Product
+    ProductType:
+      required:
+      - description
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5easdg798as87d
+        name:
+          type: string
+          example: Pizza muzzarella
+        description:
+          type: string
+          example: Pizza that includes sauce and cheese
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+      example:
+        name: Pizza muzzarella
+        description: Pizza that includes sauce and cheese
+        id: 5easdg798as87d
+        products:
+        - celiac: true
+          image: image
+          amount: 0.80082819046101150206595775671303272247314453125
+          name: Pizza muzzarella
+          id: 5easdg798as87d
+          stock: 6.02745618307040320615897144307382404804229736328125
+          productType: {}
+          amountUnit: amountUnit
+          productPrice:
+            amount: 1.46581298050294517310021547018550336360931396484375
+            productId: 5easdg798as87d
+            id: 5easdg798as87d
+            creationDate: 2000-01-23T04:56:07.000+00:00
+        - celiac: true
+          image: image
+          amount: 0.80082819046101150206595775671303272247314453125
+          name: Pizza muzzarella
+          id: 5easdg798as87d
+          stock: 6.02745618307040320615897144307382404804229736328125
+          productType: {}
+          amountUnit: amountUnit
+          productPrice:
+            amount: 1.46581298050294517310021547018550336360931396484375
+            productId: 5easdg798as87d
+            id: 5easdg798as87d
+            creationDate: 2000-01-23T04:56:07.000+00:00
+    ProductPrice:
+      required:
+      - amount
+      - productId
+      type: object
+      properties:
+        id:
+          type: string
+          example: 5easdg798as87d
+        amount:
+          type: number
+        productId:
+          type: string
+          example: 5easdg798as87d
+        creationDate:
+          type: string
+          format: date-time
+      example:
+        amount: 1.46581298050294517310021547018550336360931396484375
+        productId: 5easdg798as87d
+        id: 5easdg798as87d
+        creationDate: 2000-01-23T04:56:07.000+00:00
+    User:
+      required:
+      - email
+      - name
+      - password
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        phone:
+          type: number
+        emergencyPhone:
+          type: number
+        address:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+      example:
+        password: ""
+        address: address
+        phone: 0.80082819046101150206595775671303272247314453125
+        name: name
+        id: id
+        emergencyPhone: 6.02745618307040320615897144307382404804229736328125
+        email: ""
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      example:
+        code: 0
+        type: type
+        message: message
+  requestBodies:
+    Product:
+      description: Product object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Product'
+      required: true
+    ProductType:
+      description: ProductType object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProductType'
+      required: true
+    ProductPrice:
+      description: ProductPrice object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProductPrice'
+      required: true
+    Order:
+      description: Order object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Order'
+      required: true
+    Table:
+      description: Table object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Table'
+      required: true
+    Section:
+      description: Section object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Section'
+      required: true
+    OrderState:
+      description: Order State object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OrderState'
+      required: true
+    User:
+      description: UserState object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+      required: true

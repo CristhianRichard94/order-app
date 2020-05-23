@@ -3,14 +3,28 @@ import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
 
+import { OrderService } from './api/order.service';
+import { OrderStateService } from './api/orderState.service';
 import { ProductService } from './api/product.service';
+import { ProductPriceService } from './api/productPrice.service';
+import { ProductTypeService } from './api/productType.service';
+import { SectionService } from './api/section.service';
+import { TableService } from './api/table.service';
+import { UserService } from './api/user.service';
 
 @NgModule({
   imports:      [],
   declarations: [],
   exports:      [],
   providers: [
-    ProductService ]
+    OrderService,
+    OrderStateService,
+    ProductService,
+    ProductPriceService,
+    ProductTypeService,
+    SectionService,
+    TableService,
+    UserService ]
 })
 export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders {
